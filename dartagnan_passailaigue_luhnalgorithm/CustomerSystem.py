@@ -1,7 +1,5 @@
 import os
 
-
-
 def printMenu():
     print('''
           Customer and Sales System\n
@@ -19,6 +17,7 @@ def printMenu():
     You may place as many or as few parameters as needed
     This function may also be broken down further depending on your algorithm/approach
 '''
+
 def enterCustomerInfo():
     firstname = input("Enter your first name: ")
     lastname = input("Enter your surname: ")
