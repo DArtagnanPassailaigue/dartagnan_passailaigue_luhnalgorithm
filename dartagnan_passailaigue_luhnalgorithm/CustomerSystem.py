@@ -11,13 +11,6 @@ def printMenu():
           Enter menu option (1-9)
           ''')
 
-'''
-    These functions are to be edited to achieve the task.
-    It is your decision to make this function a procedural or functional type
-    You may place as many or as few parameters as needed
-    This function may also be broken down further depending on your algorithm/approach
-'''
-
 def enterCustomerInfo():
     firstname = input("Enter your first name: ")
     lastname = input("Enter your surname: ")
@@ -65,7 +58,7 @@ exitCondition = "9"
 
 while userInput != exitCondition:
     printMenu()                 # Printing out the main menu
-    userInput = input();        # User selection from the menu
+    userInput = input()      # User selection from the menu
 
     if userInput == enterCustomerOption:
         # Only the line below may be editted based on the parameter list and how you design the method return
