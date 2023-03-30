@@ -20,7 +20,11 @@ def enterCustomerInfo():
     creditcard = input("Enter your credit card number (i will not steal your money i promise): ")
     validateCreditCard(creditcard)
     customerInfo = firstname + "," + lastname + "," + city + "," + postalcode + "," + creditcard
-    enterInformation(customerInfo, "/temp.txt")
+    folder = os.getcwd()
+    fileName = str(folder) + "/temp.csv"
+    currentEdit = open(fileName, "w")
+    currentEdit.writelines(customerInfo)
+    currentEdit.close
     
 def validatePostalCode(code):
     pass    # Remove this pass statement and add your own code below
@@ -29,19 +33,20 @@ def validateCreditCard(number):
     pass    # Remove this pass statement and add your own code below
 
 def generateCustomerDataFile():
-    folderChoice = input("Enter the filename you wish to save to: ")
+    folderChoice = input("Enter the name of the folder you wish to save to: ")
+    folder = os.getcwd()
+    fileName = str(folder) + "/temp.csv"
+    currentEdit = open(fileName, "r")
+    tempContents = currentEdit.read()
+    fileName = str(folder) + "/" + folderChoice
+    currentEdit = open(fileName, "a")
+    currentEdit.writelines("\n" + tempContents)
+    currentEdit.close
+    
 
 ####################################################################
 #       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         #
 ####################################################################
-
-def enterInformation(text, file):
-    folder = os.getcwd()
-    fileName = str(folder) + file
-    print(fileName)
-    currentEdit = open(fileName, "w")
-    currentEdit.writelines(text)
-    currentEdit.close
 
 ####################################################################
 #                            MAIN PROGRAM                          #
