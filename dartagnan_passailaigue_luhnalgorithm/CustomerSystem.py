@@ -19,8 +19,8 @@ def enterCustomerInfo():
     validatePostalCode(postalcode)
     creditcard = input("Enter your credit card number (i will not steal your money i promise): ")
     validateCreditCard(creditcard)
-    customerInfo = str(firstname + "," + lastname + "," + city + "," + postalcode + "," + creditcard)
-    enterInformation(customerInfo, "\\dartagnan_passailaigue_luhnalgorithm\\temp.txt")
+    customerInfo = firstname + "," + lastname + "," + city + "," + postalcode + "," + creditcard
+    enterInformation(customerInfo, "/temp.txt")
     
 def validatePostalCode(code):
     pass    # Remove this pass statement and add your own code below
@@ -38,6 +38,7 @@ def generateCustomerDataFile():
 def enterInformation(text, file):
     folder = os.getcwd()
     fileName = str(folder) + file
+    print(fileName)
     currentEdit = open(fileName, "w")
     currentEdit.writelines(text)
     currentEdit.close
