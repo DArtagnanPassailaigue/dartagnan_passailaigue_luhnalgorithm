@@ -18,21 +18,37 @@ def enterCustomerInfo():
     postalcode = input("Enter your postal code: ")
     validatePostalCode(postalcode)
     creditcard = input("Enter your credit card number (i will not steal your money i promise): ")
-    if creditcard 
-    validateCreditCard(creditcard)
+    if len(creditcard) >= 9:
+        validateCreditCard(creditcard)
+    else:
+        print("Invalid credit card number.")
+        enterCustomerInfo()
     customerInfo = firstname + "," + lastname + "," + city + "," + postalcode + "," + creditcard
     folder = os.getcwd()
     fileName = str(folder) + "/temp.csv"
-    currentEdit = open(fileName, "w")
-    currentEdit.writelines(customerInfo)
-    currentEdit.close
+    with open(fileName, "w") as currentEdit:
+        currentEdit.writelines(customerInfo)
     
 def validatePostalCode(code):
     pass    # Remove this pass statement and add your own code below
 
 def validateCreditCard(number):
-    pass
-
+    check_sum = 0
+    odd_or_even = len(number) % 2
+    for i in range(len(number) - 1, -1, -1):
+        x = int(number[i])
+        if (i + 1) % 2 != odd_or_even:
+            x = x * 2
+        elif x > 9:
+            x = x - 9
+        check_sum = check_sum + x
+    result = check_sum % 10 == 0
+    if result == True:
+        print("Credit card validated!")
+    elif result == False:
+        print("Credit card declined :(")
+        enterCustomerInfo()
+    
 def generateCustomerDataFile():
     '''Generates a data file for the customer currently in the temp.csv file'''
     folderChoice = input("Enter the name of the folder you wish to save to: ")
