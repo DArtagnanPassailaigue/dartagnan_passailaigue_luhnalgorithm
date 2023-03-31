@@ -43,8 +43,8 @@ def validatePostalCode(code):
     with open(fileName, "r") as readFile:
         postalCodeFile = csv.reader(readFile, delimiter='|')
         for row in postalCodeFile:
-            codesInFile = row[0].strip().upper()[:3]
-            if code.strip()[:3] == codesInFile:
+            codeInFile = row[0].strip().upper()[:3]
+            if code.strip()[:3] == codeInFile:
                 print("Postal code approved!")
                 return
         print("Postal code was not found :(")
@@ -64,6 +64,7 @@ def validateCreditCard(number):
     result = checkSum % 10 == 0
     if result == True:
         print("Credit card validated!")
+        return
     else:
         print("Credit card declined :(")
         enterCustomerInfo()
