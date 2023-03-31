@@ -18,6 +18,7 @@ def enterCustomerInfo():
     postalcode = input("Enter your postal code: ")
     validatePostalCode(postalcode)
     creditcard = input("Enter your credit card number (i will not steal your money i promise): ")
+    if creditcard 
     validateCreditCard(creditcard)
     customerInfo = firstname + "," + lastname + "," + city + "," + postalcode + "," + creditcard
     folder = os.getcwd()
@@ -30,19 +31,26 @@ def validatePostalCode(code):
     pass    # Remove this pass statement and add your own code below
 
 def validateCreditCard(number):
-    pass    # Remove this pass statement and add your own code below
+    pass
 
 def generateCustomerDataFile():
+    '''Generates a data file for the customer currently in the temp.csv file'''
     folderChoice = input("Enter the name of the folder you wish to save to: ")
     folder = os.getcwd()
     fileName = str(folder) + "/temp.csv"
-    currentEdit = open(fileName, "r")
-    tempContents = currentEdit.read()
+    with open(fileName, "r") as currentEdit_r:
+        tempContents = currentEdit_r.read()
+    fileName = str(folder) + "/userID.txt"
+    with open(fileName, "r") as currentEdit_r:
+        userID = currentEdit_r.read()
+    userID = int(userID)
     fileName = str(folder) + "/" + folderChoice
-    currentEdit = open(fileName, "a")
-    currentEdit.writelines("\n" + tempContents)
-    currentEdit.close
-    
+    with open(fileName, "a") as currentEdit_a:
+        currentEdit_a.write(str(userID) + "," + tempContents + "\n")
+    fileName = str(folder) + "/userID.txt"
+    with open(fileName, "w") as currentEdit_w:
+        userID += 1
+        currentEdit_w.write(str(userID))
 
 ####################################################################
 #       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         #
@@ -60,7 +68,7 @@ generateCustomerOption = "2"
 exitCondition = "9"
 
 # More variables for the main may be declared in the space below
-
+userID = 0
 
 while userInput != exitCondition:
     printMenu()                 # Printing out the main menu
