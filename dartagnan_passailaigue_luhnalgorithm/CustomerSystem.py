@@ -38,12 +38,15 @@ def enterCustomerInfo():
     
 def validatePostalCode(code):
     '''Uses the database of postal codes in postal_codes.csv to cross reference the postal code input by the user'''
-    try:
-        folder = os.getcwd()
-        fileName = str(folder) + "/postal_codes.csv"
-        with open(fileName, "r") as readFile:
-            postalCodeFile = csv.reader(readFile, delimiter='|')
-    except:
+    folder = os.getcwd()
+    fileName = str(folder) + "/dartagnan_passailaigue_luhnalgorithm/postal_codes.csv"
+    with open(fileName, "r") as readFile:
+        postalCodeFile = csv.reader(readFile, delimiter='|')
+        for row in postalCodeFile:
+            codesInFile = row[0].strip().upper()[:3]
+            if code.strip()[:3] == codesInFile:
+                print("Postal code approved!")
+                return
         print("Postal code was not found :(")
         enterCustomerInfo()
 
