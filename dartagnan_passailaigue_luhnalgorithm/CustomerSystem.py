@@ -1,6 +1,8 @@
 import os
+import csv
 
 def printMenu():
+    '''The menu that allows users to choose an action in the program'''
     print('''
           Customer and Sales System\n
           1. Enter Customer Information\n
@@ -12,11 +14,16 @@ def printMenu():
           ''')
 
 def enterCustomerInfo():
+    '''Allows the user to input the customer's information, and validates the postal code and credit card inputs'''
     firstname = input("Enter your first name: ")
     lastname = input("Enter your surname: ")
     city = input("Enter the name of your city: ")
     postalcode = input("Enter your postal code: ")
-    validatePostalCode(postalcode)
+    if len(postalcode) >= 3:
+        validatePostalCode(postalcode)
+    else:
+        print("Invalid postal code.")
+        enterCustomerInfo()
     creditcard = input("Enter your credit card number (i will not steal your money i promise): ")
     if len(creditcard) >= 9:
         validateCreditCard(creditcard)
@@ -30,22 +37,31 @@ def enterCustomerInfo():
         currentEdit.writelines(customerInfo)
     
 def validatePostalCode(code):
-    pass    # Remove this pass statement and add your own code below
+    '''Uses the database of postal codes in postal_codes.csv to cross reference the postal code input by the user'''
+    try:
+        folder = os.getcwd()
+        fileName = str(folder) + "/postal_codes.csv"
+        with open(fileName, "r") as readFile:
+            postalCodeFile = csv.reader(readFile, delimiter='|')
+    except:
+        print("Postal code was not found :(")
+        enterCustomerInfo()
 
 def validateCreditCard(number):
-    check_sum = 0
+    '''Uses the Luhn Algorithm to validate the credit card input by the user'''
+    checkSum = 0
     odd_or_even = len(number) % 2
-    for i in range(len(number) - 1, -1, -1):
+    for i in range(len(number) -1, -1, -1):
         x = int(number[i])
         if (i + 1) % 2 != odd_or_even:
             x = x * 2
-        elif x > 9:
+        if x > 9:
             x = x - 9
-        check_sum = check_sum + x
-    result = check_sum % 10 == 0
+        checkSum = checkSum + x
+    result = checkSum % 10 == 0
     if result == True:
         print("Credit card validated!")
-    elif result == False:
+    else:
         print("Credit card declined :(")
         enterCustomerInfo()
     
